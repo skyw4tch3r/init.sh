@@ -3,7 +3,7 @@
 # -----------
 # |  Usage: |
 # -----------
-# bash -c "$(wget -O- https://github.com/skyw4tch3r/init.sh/main/init.sh)"
+# bash -c "$(wget -O- https://raw.githubusercontent.com/skyw4tch3r/init.sh/refs/heads/main/init.sh)"
 # after installation - open tmux and press Prefix+I to install the theme
 
 cd ~ 
