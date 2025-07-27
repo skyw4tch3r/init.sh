@@ -85,6 +85,7 @@ setw -g aggressive-resize on
 # Change prefix key to C-a, easier to type, same to "screen"
 unbind C-b
 set -g prefix C-a
+bind C-a send-prefix
 
 # Set parent terminal title to reflect current window in tmux session 
 set -g set-titles on
@@ -126,6 +127,11 @@ unbind z    # zoom-pane
 #unbind M-Right # resize 5 rows right
 #unbind M-Left # resize 5 rows left
 
+bind n next-window
+bind p previous-window
+bind l last-window
+
+
 # Split panes
 bind | split-window -h -c "#{pane_current_path}"
 bind _ split-window -v -c "#{pane_current_path}"
@@ -146,7 +152,7 @@ bind C-x confirm-before -p "kill other windows? (y/n)" "kill-window -a"
 bind Q confirm-before -p "kill-session #S? (y/n)" kill-session
 
 # Prompt to rename window right after it's created
-set-hook -g after-new-window 'command-prompt -I "#{window_name}" "rename-window '%%'"'
+#set-hook -g after-new-window 'command-prompt -I "#{window_name}" "rename-window '%%'"'
 
 # Detach from session
 bind d detach
@@ -260,7 +266,7 @@ set -g @sidebar-tree-command 'tree -C'
 
 set -g @open-S 'https://www.google.com/search?q='
 
-run '~/.tmux/plugins/tpm/tpm'
+#run '~/.tmux/plugins/tpm/tpm'
 EOF
 
 # ==========================
@@ -268,11 +274,22 @@ EOF
 # ==========================
 echo "[*] Installing Oh My Zsh..."
 rm -rf $HOME/.oh-my-zsh
-mkdir -p ~/.antigen && curl -SL https://github.com/zsh-users/antigen/raw/develop/bin/antigen.zsh -o ~/.antigen/antigen.zsh
+sh -c "$(wget -qO- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
 
 # ==========================
 # | 6. Install Zsh Plugins |
 # ==========================
+wget  https://raw.githubusercontent.com/zthxxx/jovial/refs/heads/master/jovial.zsh-theme -O ~/.oh-my-zsh/themes/jovial.zsh-theme
+
+# ==========================
+# | 6. Install Zsh Plugins |
+# ==========================
+echo "[*] Installing Zsh plugins..."
+plugins_name="zsh-autosuggestions zsh-syntax-highlighting git zsh-fzf-history-search"
+git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions || true
+git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting || true
+git clone --depth=1 https://github.com/joshskidmore/zsh-fzf-history-search ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-fzf-history-search || true
+#sed -E  "s/plugins=\((.+)\)/plugins=\(${plugins_name}\)/g" -i ~/.zshrc
 
 # ==========================
 # | 7. Write .zshrc        |
@@ -285,39 +302,11 @@ cat > ~/.zshrc <<'EOF'
 # ==========================
 
 export ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME="jovial"
+ZSH_THEME="junkfood"
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
-# Antigen is a tool for managing Zsh plugins and themes.
-# It allows you to easily install, update, and manage your Zsh plugins.
-# This configuration uses Antigen to load the Jovial theme and various plugins.
-# [Antigen](https://github.com/zsh-users/antigen),
-# a theme/plugin manager for zsh that uses simple declarative configuration.
-
-# Load Antigen
-source ~/.antigen/antigen.zsh
-
-# Basic recommended for Antigen
-antigen use oh-my-zsh
-antigen bundle git
-antigen bundle autojump
-antigen bundle colored-man-pages
-antigen bundle zsh-users/zsh-completions
-antigen bundle zsh-users/zsh-autosuggestions
-antigen bundle zsh-users/zsh-syntax-highlighting
-
-# Load the Jovial theme and plugins
-antigen theme zthxxx/jovial
-antigen bundle zthxxx/jovial
-#antigen bundle zthxxx/zsh-history-enquirer
-
-
-# Any other plugins need to be set before `antigen apply`
-
-# After all, tell Antigen that you're done, then Antigen will start
-antigen apply
-
-# ==========================
-# ===   Aliases and PATH   ===
+fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
+source $ZSH/oh-my-zsh.sh
 
 alias ls='exa --icons'
 alias l='exa --icons -lh'
@@ -326,14 +315,13 @@ alias la='exa --icons -A'
 alias lm='exa --icons -m'
 alias lr='exa --icons -R'
 alias lg='exa --icons -l --group-directories-first'
-#alias vi='nvim'
-#alias nano='nvim'
+alias vi='nvim'
 
 ##PWNDOC NG Settings###
 #alias pwn-start='sudo docker-compose -f  ~/scripts/pwndoc-ng/docker-compose.yml start'
 #alias pwn-stop='sudo docker-compose -f  ~/scripts/pwndoc-ng/docker-compose.yml stop'
 
-
+alias nano='nvim'
 export PATH="$PATH:$HOME/.pdtm/go/bin:/usr/local/go/bin/nuclei:/opt/nvim-linux-x86_64/bin:$HOME/.local/bin:/usr/local/go/bin:$HOME/go/bin:$HOME/.cargo/bin"
 export TERM=xterm-256color
 export LANG=C.UTF-8
@@ -347,7 +335,9 @@ alias clear='clear -x'
 # ===========================
 venv() { python3 -m venv $1 && source $1/bin/activate; }
 
-alias grepip='grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b"'
+echo -e "\033]6;1;bg;red;brightness;40\a"
+echo -e "\033]6;1;bg;green;brightness;44\a"
+echo -e "\033]6;1;bg;blue;brightness;52\a"
 
 EOF
 
