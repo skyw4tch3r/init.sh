@@ -53,14 +53,13 @@ go install -v github.com/projectdiscovery/pdtm/cmd/pdtm@latest
 mkdir -p ~/.tmux
 mkdir -p ~/.tmux/plugins
 mkdir -p ~/.tmux/plugins/tpm
+
 cat > ~/.tmux/yank.sh <<'EOS'
 #!/bin/sh
 xclip -selection clipboard
 EOS
+
 chmod +x ~/.tmux/yank.sh
-
-
-
 
 echo "[*] Writing .tmux.conf..."
 
@@ -101,33 +100,35 @@ set -g mouse on
 # ==========================
 
 # Unbind default key bindings, we're going to override
-unbind "\$" # rename-session
-unbind ,    # rename-window
+
 unbind %    # split-window -h
 unbind '"'  # split-window
-unbind }    # swap-pane -D
-unbind {    # swap-pane -U
-unbind [    # paste-buffer
-unbind ]    
-unbind "'"  # select-window
-unbind n    # next-window
-unbind p    # previous-window
-unbind l    # last-window
-unbind M-n  # next window with alert
-unbind M-p  # next window with alert
-unbind o    # focus thru panes
+#unbind }    # swap-pane -D
+#unbind {    # swap-pane -U
+#unbind [    # paste-buffer
+#unbind ]    
+#unbind "'"  # select-window
+#unbind n    # next-window
+#unbind p    # previous-window
+#unbind l    # last-window
+#unbind M-n  # next window with alert
+#unbind M-p  # next window with alert
+#unbind o    # focus thru panes
 unbind &    # kill-window
-unbind "#"  # list-buffer 
-unbind =    # choose-buffer
+#unbind "#"  # list-buffer 
+#unbind =    # choose-buffer
 unbind z    # zoom-pane
-unbind M-Up  # resize 5 rows up
-unbind M-Down # resize 5 rows down
-unbind M-Right # resize 5 rows right
-unbind M-Left # resize 5 rows left
+#unbind M-Up  # resize 5 rows up
+#unbind M-Down # resize 5 rows down
+#unbind M-Right # resize 5 rows right
+#unbind M-Left # resize 5 rows left
 
+# Split panes
+bind | split-window -h -c "#{pane_current_path}"
+bind _ split-window -v -c "#{pane_current_path}"
 
-# Edit configuration and reload
-bind C-e new-window -n 'tmux.conf' "sh -c '\${EDITOR:-vim} ~/.tmux.conf && tmux source ~/.tmux.conf && tmux display \"Config reloaded\"'"
+# Zoom pane
+bind + resize-pane -Z
 
 # Reload tmux configuration 
 bind C-r source-file ~/.tmux.conf \; display "Config reloaded"
@@ -135,78 +136,20 @@ bind C-r source-file ~/.tmux.conf \; display "Config reloaded"
 # new window and retain cwd
 bind c new-window -c "#{pane_current_path}"
 
-# Prompt to rename window right after it's created
-set-hook -g after-new-window 'command-prompt -I "#{window_name}" "rename-window '%%'"'
-
-# Rename session and window
-bind r command-prompt -I "#{window_name}" "rename-window '%%'"
-bind R command-prompt -I "#{session_name}" "rename-session '%%'"
-
-# Split panes
-bind | split-window -h -c "#{pane_current_path}"
-bind _ split-window -v -c "#{pane_current_path}"
-
-# Select pane and windows
-bind -r C-[ previous-window
-bind -r C-] next-window
-bind -r [ select-pane -t :.-
-bind -r ] select-pane -t :.+
-bind -r Tab last-window   # cycle thru MRU tabs
-bind -r C-o swap-pane -D
-
-# Zoom pane
-bind + resize-pane -Z
-
-# Link window
-bind L command-prompt -p "Link window from (session:window): " "link-window -s %% -a"
-
-# Swap panes back and forth with 1st pane
-# When in main-(horizontal|vertical) layouts, the biggest/widest panel is always @1
-bind \ if '[ #{pane_index} -eq 1 ]' \
-     'swap-pane -s "!"' \
-     'select-pane -t:.1 ; swap-pane -d -t 1 -s "!"'
-
 # Kill pane/window/session shortcuts
 bind x kill-pane
 bind X kill-window
 bind C-x confirm-before -p "kill other windows? (y/n)" "kill-window -a"
 bind Q confirm-before -p "kill-session #S? (y/n)" kill-session
 
-# Merge session with another one (e.g. move all windows)
-# If you use adhoc 1-window sessions, and you want to preserve session upon exit
-# but don't want to create a lot of small unnamed 1-window sessions around
-# move all windows from current session to main named one (dev, work, etc)
-bind C-u command-prompt -p "Session to merge with: " \
-   "run-shell 'yes | head -n #{session_windows} | xargs -I {} -n 1 tmux movew -t %%'"
+# Prompt to rename window right after it's created
+set-hook -g after-new-window 'command-prompt -I "#{window_name}" "rename-window '%%'"'
 
 # Detach from session
 bind d detach
 bind D if -F '#{session_many_attached}' \
     'confirm-before -p "Detach other clients? (y/n)" "detach -a"' \
     'display "Session has only 1 client attached"'
-
-# Hide status bar on demand
-bind C-s if -F '#{s/off//:status}' 'set status off' 'set status on'
-
-
-
-# ==================================================
-# === Window monitoring for activity and silence ===
-# ==================================================
-bind m setw monitor-activity \; display-message 'Monitor window activity [#{?monitor-activity,ON,OFF}]'
-bind M if -F '#{monitor-silence}' \
-    'setw monitor-silence 0 ; display-message "Monitor window silence [OFF]"' \
-    'command-prompt -p "Monitor silence: interval (s)" "setw monitor-silence %%"'
-
-# Activity bell and whistles
-set -g visual-activity on
-
-# TODO: Does not work as well, check on newer versions
-# set -g visual-silence on
-
-# BUG: bell-action other ignored · Issue #1027 · tmux/tmux · GitHub - https://github.com/tmux/tmux/issues/1027
-# set -g visual-bell on
-# setw -g bell-action other
 
 # ================================================
 # ===     Copy mode, scroll and clipboard      ===
@@ -413,80 +356,9 @@ set -g @sidebar-tree-command 'tree -C'
 
 set -g @open-S 'https://www.google.com/search?q='
 
-
-# ==============================================
-# ===   Nesting local and remote sessions     ===
-# ==============================================
-
-# Session is considered to be remote when we ssh into host
-if-shell 'test -n "$SSH_CLIENT"' \
-    'source-file ~/.tmux/tmux.remote.conf'
-
-# We want to have single prefix key "C-a", usable both for local and remote session
-# we don't want to "C-a" + "a" approach either
-# Idea is to turn off all key bindings and prefix handling on local session,
-# so that all keystrokes are passed to inner/remote session
-
-# see: toggle on/off all keybindings · Issue #237 · tmux/tmux - https://github.com/tmux/tmux/issues/237
-
-# Also, change some visual styles when window keys are off
-bind -T root F12  \
-    set prefix None \;\
-    set key-table off \;\
-    set status-style "fg=$color_status_text,bg=$color_window_off_status_bg" \;\
-    set window-status-current-format "#[fg=$color_window_off_status_bg,bg=$color_window_off_status_current_bg]$separator_powerline_right#[default] #I:#W# #[fg=$color_window_off_status_current_bg,bg=$color_window_off_status_bg]$separator_powerline_right#[default]" \;\
-    set window-status-current-style "fg=$color_dark,bold,bg=$color_window_off_status_current_bg" \;\
-    if -F '#{pane_in_mode}' 'send-keys -X cancel' \;\
-    refresh-client -S \;\
-
-bind -T off F12 \
-  set -u prefix \;\
-  set -u key-table \;\
-  set -u status-style \;\
-  set -u window-status-current-style \;\
-  set -u window-status-current-format \;\
-  refresh-client -S
-
-# Run all plugins' scripts
-run '~/.tmux/plugins/tpm/tpm'
-
-
-# =====================================
-# ===        Renew environment      ===
-# =====================================
-set -g update-environment \
-  "DISPLAY\
-  SSH_ASKPASS\
-  SSH_AUTH_SOCK\
-  SSH_AGENT_PID\
-  SSH_CONNECTION\
-  SSH_TTY\
-  WINDOWID\
-  XAUTHORITY"
-
-bind '$' run "~/.tmux/renew_env.sh"
-
-# ============================
-# ===       Plugins        ===
-# ============================
-set -g @plugin 'tmux-plugins/tpm'
-set -g @plugin 'tmux-plugins/tmux-battery'
-set -g @plugin 'tmux-plugins/tmux-prefix-highlight'
-set -g @plugin 'tmux-plugins/tmux-online-status'
-set -g @plugin 'tmux-plugins/tmux-sidebar'
-set -g @plugin 'tmux-plugins/tmux-copycat'
-set -g @plugin 'tmux-plugins/tmux-open'
-set -g @plugin 'samoshkin/tmux-plugin-sysstat'
-
-# Plugin properties
-set -g @sidebar-tree 't'
-set -g @sidebar-tree-focus 'T'
-set -g @sidebar-tree-command 'tree -C'
-set -g @open-S 'https://www.google.com/search?q='
-
-
 run '~/.tmux/plugins/tpm/tpm'
 EOF
+
 
 # ==========================
 # | 5. Install Oh My Zsh   |
