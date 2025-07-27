@@ -366,7 +366,4 @@ python3 -m pipx ensurepath
 echo "[*] Installing bbot..."
 pipx install bbot
 
-
-source ~/.zshrc
-bash
 echo "[*] Setup complete! Please restart your terminal or source your shell config."
