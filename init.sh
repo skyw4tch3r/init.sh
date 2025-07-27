@@ -14,11 +14,16 @@ cd ~
 # | 1. Install Essential Packages |
 # ==========================
 echo "[*] Installing essential packages..."
-sudo NEEDRESTART_MODE=a apt update
+sudo NEEDRESTART_MODE=a apt update && \
+  sudo NEEDRESTART_MODE=a apt upgrade -y && \
+  sudo NEEDRESTART_MODE=a apt dist-upgrade -y && \
+  sudo NEEDRESTART_MODE=a apt autoremove -y && \
+  sudo NEEDRESTART_MODE=a apt autoclean -y
+
 sudo NEEDRESTART_MODE=a apt install -y \
   tmux zsh vim curl git xclip wget htop net-tools \
   python3-pip python3-dev libssl-dev libffi-dev build-essential unzip python3-venv \
-  fzf eza golang-go cargo pipx massdns libpcap-dev
+  fzf eza golang-go cargo pipx massdns libpcap-dev docker docker-compose autojump terminal-notifier source-highlight
 
 # ==========================
 # | 1.1 Install NeoVIM |
@@ -42,10 +47,8 @@ go install -v github.com/projectdiscovery/pdtm/cmd/pdtm@latest
 # | 3. (Optional) Install Starship and Docker |
 # ==========================
 # Uncomment to install Starship prompt and Docker
-# sudo sh -c "$(wget -qO- https://starship.rs/install.sh)" "" -y
-# sudo NEEDRESTART_MODE=a apt install -y docker docker-compose
-# sudo systemctl enable docker --now
-# sudo usermod -aG docker $USER
+sudo sh -c "$(wget -qO- https://starship.rs/install.sh)" "" -y
+# 
 
 # ==========================
 # | 4. Write .tmux.conf    |
@@ -265,17 +268,11 @@ EOF
 # ==========================
 echo "[*] Installing Oh My Zsh..."
 rm -rf $HOME/.oh-my-zsh
-sh -c "$(wget -qO- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+mkdir -p ~/.antigen && curl -SL https://github.com/zsh-users/antigen/raw/develop/bin/antigen.zsh -o ~/.antigen/antigen.zsh
 
 # ==========================
 # | 6. Install Zsh Plugins |
 # ==========================
-echo "[*] Installing Zsh plugins..."
-plugins_name="zsh-autosuggestions zsh-syntax-highlighting git zsh-fzf-history-search"
-git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions || true
-git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting || true
-git clone --depth=1 https://github.com/joshskidmore/zsh-fzf-history-search ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-fzf-history-search || true
-#sed -E  "s/plugins=\((.+)\)/plugins=\(${plugins_name}\)/g" -i ~/.zshrc
 
 # ==========================
 # | 7. Write .zshrc        |
@@ -288,11 +285,40 @@ cat > ~/.zshrc <<'EOF'
 # ==========================
 
 export ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME="junkfood"
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+ZSH_THEME="jovial"
 
-fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
-source $ZSH/oh-my-zsh.sh
+=# Load Antigen
+# Antigen is a tool for managing Zsh plugins and themes.
+# It allows you to easily install, update, and manage your Zsh plugins.
+# This configuration uses Antigen to load the Jovial theme and various plugins.
+# [Antigen](https://github.com/zsh-users/antigen),
+# a theme/plugin manager for zsh that uses simple declarative configuration.
+
+# Load Antigen
+source ~/.antigen/antigen.zsh
+
+# Basic recommended for Antigen
+antigen use oh-my-zsh
+antigen bundle git
+antigen bundle autojump
+antigen bundle colored-man-pages
+antigen bundle zsh-users/zsh-completions
+antigen bundle zsh-users/zsh-autosuggestions
+antigen bundle zsh-users/zsh-syntax-highlighting
+
+# Load the Jovial theme and plugins
+antigen theme zthxxx/jovial
+antigen bundle zthxxx/jovial
+antigen bundle zthxxx/zsh-history-enquirer
+
+
+# Any other plugins need to be set before `antigen apply`
+
+# After all, tell Antigen that you're done, then Antigen will start
+antigen apply
+
+# ==========================
+# ===   Aliases and PATH   ===
 
 alias ls='exa --icons'
 alias l='exa --icons -lh'
@@ -365,5 +391,11 @@ python3 -m pipx ensurepath
 
 echo "[*] Installing bbot..."
 pipx install bbot
+
+# ==========================
+# | 12. Finalizing and restarting shell |
+# ========================== 
+echo "[*] Finalizing setup..." 
+exec zsh -il
 
 echo "[*] Setup complete! Please restart your terminal or source your shell config."
