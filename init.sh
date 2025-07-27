@@ -47,7 +47,7 @@ go install -v github.com/projectdiscovery/pdtm/cmd/pdtm@latest
 # | 3. (Optional) Install Starship and Docker |
 # ==========================
 # Uncomment to install Starship prompt and Docker
-sudo sh -c "$(wget -qO- https://starship.rs/install.sh)" "" -y
+#sudo sh -c "$(wget -qO- https://starship.rs/install.sh)" "" -y
 # 
 
 # ==========================
@@ -86,6 +86,10 @@ setw -g aggressive-resize on
 unbind C-b
 set -g prefix C-a
 bind C-a send-prefix
+
+bind n next-window
+bind p previous-window
+bind l last-window
 
 # Set parent terminal title to reflect current window in tmux session 
 set -g set-titles on
@@ -126,11 +130,6 @@ unbind z    # zoom-pane
 #unbind M-Down # resize 5 rows down
 #unbind M-Right # resize 5 rows right
 #unbind M-Left # resize 5 rows left
-
-bind n next-window
-bind p previous-window
-bind l last-window
-
 
 # Split panes
 bind | split-window -h -c "#{pane_current_path}"
@@ -302,7 +301,7 @@ cat > ~/.zshrc <<'EOF'
 # ==========================
 
 export ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME="junkfood"
+ZSH_THEME="jovial"
 plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
