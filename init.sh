@@ -23,10 +23,10 @@ sudo NEEDRESTART_MODE=a apt install -y \
 # ==========================
 # | 1.1 Install NeoVIM |
 # ==========================
-curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz && sudo rm -rf /opt/nvim && sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
-mkdir -p ~/.config/nvim
-git clone https://github.com/folke/lazy.nvim.git ~/.local/share/nvim/lazy/lazy.nvim
-nvim ~/.config/nvim/init.lua
+#curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz && sudo rm -rf /opt/nvim && sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
+#mkdir -p ~/.config/nvim
+#git clone https://github.com/folke/lazy.nvim.git ~/.local/share/nvim/lazy/lazy.nvim
+#nvim ~/.config/nvim/init.lua
 
 eval "$(pipx ensurepath)"
 
