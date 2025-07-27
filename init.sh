@@ -336,7 +336,37 @@ sudo chsh -s "$(command -v zsh)" "$USER"
 # | 9. (Optional) Install Nerd Font |
 # ==========================
 # Uncomment to install Caskaydia Cove Nerd Font
-# wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/CascadiaCode.zip -O /tmp/CascadiaCode.zip
-# mkdir -p ~/.local/share/fonts ;  unzip /tmp/CascadiaCode.zip 'Caskaydia Cove Nerd Font Complete.ttf' -d ~/.local/share/fonts
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/CascadiaCode.zip -O /tmp/CascadiaCode.zip
+mkdir -p ~/.local/share/fonts ;  unzip /tmp/CascadiaCode.zip 'Caskaydia Cove Nerd Font Complete.ttf' -d ~/.local/share/fonts
 
+#wget https://github.com/tonsky/FiraCode/releases/download/6.2/Fira_Code_v6.2.zip -O /tmp/fira_code_font.zip
+#mkdir -p ~/.local/share/fonts ;  unzip /tmp/fira_code_font.zip 'Fira Code.ttf' -d ~/.local/share/fonts
+
+
+# ==========================
+# | 10. enabling and starting SSH daemon|
+# ==========================
+
+echo "[+] Configuring SSH to allow password authentication..."
+sudo sed -i 's/^#\?PasswordAuthentication .*/PasswordAuthentication yes/' /etc/ssh/sshd_config
+echo "[+] Enabling and starting default SSH daemon..."
+sudo systemctl enable ssh
+sudo systemctl start ssh
+
+
+# ==========================
+# | 11. Installing offsec Tools|
+# ==========================
+sudo apt remove impacket-scripts -y || true
+echo "[*] Installing Offsec tools..."
+python3 -m pipx install git+https://github.com/fortra/impacket.git
+echo "[*] Installing pipx packages..."
+python3 -m pipx ensurepath
+
+echo "[*] Installing bbot..."
+pipx install bbot
+
+
+source ~/.zshrc
+bash
 echo "[*] Setup complete! Please restart your terminal or source your shell config."
