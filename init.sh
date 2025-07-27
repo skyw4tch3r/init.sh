@@ -18,7 +18,7 @@ sudo NEEDRESTART_MODE=a apt update
 sudo NEEDRESTART_MODE=a apt install -y \
   tmux zsh vim curl git xclip wget htop net-tools \
   python3-pip python3-dev libssl-dev libffi-dev build-essential unzip python3-venv \
-  fzf eza golang-go cargo pipx massdns libcap-dev
+  fzf eza golang-go cargo pipx massdns libpcap-dev
 
 # ==========================
 # | 1.1 Install NeoVIM |
