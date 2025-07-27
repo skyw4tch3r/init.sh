@@ -264,6 +264,7 @@ EOF
 # | 5. Install Oh My Zsh   |
 # ==========================
 echo "[*] Installing Oh My Zsh..."
+rm -rf $HOME/.oh-my-zsh
 sh -c "$(wget -qO- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
 # ==========================
