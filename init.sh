@@ -287,7 +287,6 @@ cat > ~/.zshrc <<'EOF'
 export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="jovial"
 
-=# Load Antigen
 # Antigen is a tool for managing Zsh plugins and themes.
 # It allows you to easily install, update, and manage your Zsh plugins.
 # This configuration uses Antigen to load the Jovial theme and various plugins.
@@ -309,7 +308,7 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 # Load the Jovial theme and plugins
 antigen theme zthxxx/jovial
 antigen bundle zthxxx/jovial
-antigen bundle zthxxx/zsh-history-enquirer
+#antigen bundle zthxxx/zsh-history-enquirer
 
 
 # Any other plugins need to be set before `antigen apply`
