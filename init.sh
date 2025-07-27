@@ -28,7 +28,7 @@ sudo NEEDRESTART_MODE=a apt install -y \
 #git clone https://github.com/folke/lazy.nvim.git ~/.local/share/nvim/lazy/lazy.nvim
 #nvim ~/.config/nvim/init.lua
 
-eval "$(pipx ensurepath)"
+#eval "$(pipx ensurepath)"
 
 # ==========================
 # | 2. Install ProjectDiscovery Toolkit |
