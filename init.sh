@@ -23,7 +23,7 @@ sudo NEEDRESTART_MODE=a apt update && \
 sudo NEEDRESTART_MODE=a apt install -y \
   tmux zsh vim curl git xclip wget htop net-tools \
   python3-pip python3-dev libssl-dev libffi-dev build-essential unzip python3-venv \
-  fzf eza golang-go cargo pipx massdns libpcap-dev docker.io docker-compose autojump source-highlight
+  fzf golang-go cargo pipx massdns libpcap-dev docker.io docker-compose autojump source-highlight
 
 # ==========================
 # | 1.1 Install NeoVIM |
@@ -355,10 +355,15 @@ python3 -m pipx ensurepath
 echo "[*] Installing bbot..."
 pipx install bbot
 
+
 # ==========================
-# | 12. Finalizing and restarting shell |
+# | 12. installing eza via cargo |
+# ========================== 
+echo "[*] installing eza via cargo..." 
+cargo install eza
+# ==========================
+# | 13. Finalizing and restarting shell |
 # ========================== 
 echo "[*] Finalizing setup..." 
 exec zsh -il
-
 echo "[*] Setup complete! Please restart your terminal or source your shell config."
