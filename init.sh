@@ -291,13 +291,14 @@ alias la='exa --icons -A'
 alias lm='exa --icons -m'
 alias lr='exa --icons -R'
 alias lg='exa --icons -l --group-directories-first'
-alias vi='nvim'
+#alias vi='nvim'
+#alias nano='nvim'
 
 ##PWNDOC NG Settings###
 #alias pwn-start='sudo docker-compose -f  ~/scripts/pwndoc-ng/docker-compose.yml start'
 #alias pwn-stop='sudo docker-compose -f  ~/scripts/pwndoc-ng/docker-compose.yml stop'
 
-alias nano='nvim'
+
 export PATH="$PATH:$HOME/.pdtm/go/bin:/usr/local/go/bin/nuclei:/opt/nvim-linux-x86_64/bin:$HOME/.local/bin:/usr/local/go/bin:$HOME/go/bin:$HOME/.cargo/bin"
 export TERM=xterm-256color
 export LANG=C.UTF-8
@@ -311,9 +312,9 @@ alias clear='clear -x'
 # ===========================
 venv() { python3 -m venv $1 && source $1/bin/activate; }
 
-echo -e "\033]6;1;bg;red;brightness;40\a"
-echo -e "\033]6;1;bg;green;brightness;44\a"
-echo -e "\033]6;1;bg;blue;brightness;52\a"
+printf "\033]6;1;bg;red;brightness;40\a"
+printf "\033]6;1;bg;green;brightness;44\a"
+printf "\033]6;1;bg;blue;brightness;52\a"
 
 EOF
 
@@ -326,12 +327,9 @@ sudo chsh -s "$(command -v zsh)" "$USER"
 # ==========================
 # | 9. (Optional) Install Nerd Font |
 # ==========================
-# Uncomment to install Caskaydia Cove Nerd Font
-wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/CascadiaCode.zip -O /tmp/CascadiaCode.zip
-mkdir -p ~/.local/share/fonts ;  unzip /tmp/CascadiaCode.zip 'Caskaydia Cove Nerd Font Complete.ttf' -d ~/.local/share/fonts
-
-#wget https://github.com/tonsky/FiraCode/releases/download/6.2/Fira_Code_v6.2.zip -O /tmp/fira_code_font.zip
-#mkdir -p ~/.local/share/fonts ;  unzip /tmp/fira_code_font.zip 'Fira Code.ttf' -d ~/.local/share/fonts
+# Uncomment to install Fira Nerd Font
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/FiraCode.zip -O /tmp/FiraCode.zip
+mkdir -p ~/.local/share/fonts ;  unzip /tmp/FiraCode.zip 'FiraCodeNerdFont-Retina.ttf' -d ~/.local/share/fonts
 
 
 # ==========================
