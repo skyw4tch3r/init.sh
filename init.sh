@@ -87,9 +87,6 @@ unbind C-b
 set -g prefix C-a
 bind C-a send-prefix
 
-bind n next-window
-bind p previous-window
-bind l last-window
 
 # Set parent terminal title to reflect current window in tmux session 
 set -g set-titles on
@@ -111,7 +108,7 @@ set -g mouse on
 
 unbind %    # split-window -h
 unbind '"'  # split-window
-unbind &    # kill-window
+unbind '&'    # kill-window
 unbind z    # zoom-pane
 
 
@@ -151,7 +148,7 @@ set -g @copy_use_osc52_fallback on
 # Prefer vi style key table
 setw -g mode-keys vi
 
-bind p paste-buffer
+bind v paste-buffer
 bind C-p choose-buffer
 
 # trigger copy mode by
@@ -249,7 +246,7 @@ set -g @sidebar-tree-command 'tree -C'
 
 set -g @open-S 'https://www.google.com/search?q='
 
-#run '~/.tmux/plugins/tpm/tpm'
+run '~/.tmux/plugins/tpm/tpm'
 EOF
 
 # ==========================
