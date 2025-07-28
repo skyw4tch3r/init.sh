@@ -111,25 +111,9 @@ set -g mouse on
 
 unbind %    # split-window -h
 unbind '"'  # split-window
-#unbind }    # swap-pane -D
-#unbind {    # swap-pane -U
-#unbind [    # paste-buffer
-#unbind ]    
-#unbind "'"  # select-window
-#unbind n    # next-window
-#unbind p    # previous-window
-#unbind l    # last-window
-#unbind M-n  # next window with alert
-#unbind M-p  # next window with alert
-#unbind o    # focus thru panes
 unbind &    # kill-window
-#unbind "#"  # list-buffer 
-#unbind =    # choose-buffer
 unbind z    # zoom-pane
-#unbind M-Up  # resize 5 rows up
-#unbind M-Down # resize 5 rows down
-#unbind M-Right # resize 5 rows right
-#unbind M-Left # resize 5 rows left
+
 
 # Split panes
 bind | split-window -h -c "#{pane_current_path}"
