@@ -284,13 +284,13 @@ plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 source $ZSH/oh-my-zsh.sh
 
-alias ls='exa --icons'
-alias l='exa --icons -lh'
-alias ll='exa --icons -lah'
-alias la='exa --icons -A'
-alias lm='exa --icons -m'
-alias lr='exa --icons -R'
-alias lg='exa --icons -l --group-directories-first'
+alias ls='eza --icons'
+alias l='eza --icons -lh'
+alias ll='eza --icons -lah'
+alias la='eza --icons -A'
+alias lm='eza --icons -m'
+alias lr='eza --icons -R'
+alias lg='eza --icons -l --group-directories-first'
 #alias vi='nvim'
 #alias nano='nvim'
 
