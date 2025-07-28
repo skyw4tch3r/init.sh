@@ -329,7 +329,7 @@ sudo chsh -s "$(command -v zsh)" "$USER"
 # ==========================
 # Uncomment to install Fira Nerd Font
 wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/FiraCode.zip -O /tmp/FiraCode.zip
-mkdir -p ~/.local/share/fonts ;  unzip /tmp/FiraCode.zip 'FiraCodeNerdFont-Retina.ttf' -d ~/.local/share/fonts
+mkdir -p ~/.local/share/fonts ;  unzip -o /tmp/FiraCode.zip 'FiraCodeNerdFont-Retina.ttf' -d ~/.local/share/fonts
 
 
 # ==========================
