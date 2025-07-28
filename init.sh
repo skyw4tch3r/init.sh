@@ -61,7 +61,6 @@ cat > ~/.tmux/yank.sh <<'EOS'
 xclip -selection clipboard
 EOS
 
-
 chmod +x ~/.tmux/yank.sh
 
 echo "[*] Writing .tmux.conf..."
@@ -87,7 +86,6 @@ unbind C-b
 set -g prefix C-a
 bind C-a send-prefix
 
-
 # Set parent terminal title to reflect current window in tmux session 
 set -g set-titles on
 set -g set-titles-string "#I:#W"
@@ -99,7 +97,6 @@ setw -g pane-base-index 1
 # Enable mouse support
 set -g mouse on
 
-
 # ==========================
 # ===   Key bindings     ===
 # ==========================
@@ -110,7 +107,6 @@ unbind %    # split-window -h
 unbind '"'  # split-window
 unbind '&'    # kill-window
 unbind z    # zoom-pane
-
 
 # Split panes
 bind | split-window -h -c "#{pane_current_path}"
@@ -257,7 +253,7 @@ rm -rf $HOME/.oh-my-zsh
 sh -c "$(wget -qO- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
 
 # ==========================
-# | 6. Install Zsh Plugins |
+# | 6. Install Zsh theme |
 # ==========================
 wget  https://raw.githubusercontent.com/zthxxx/jovial/refs/heads/master/jovial.zsh-theme -O ~/.oh-my-zsh/themes/jovial.zsh-theme
 
