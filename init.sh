@@ -361,8 +361,80 @@ pipx install bbot
 # ========================== 
 echo "[*] installing eza via cargo..." 
 cargo install eza
+
 # ==========================
-# | 13. Finalizing and restarting shell |
+# | 7. Write .vimrc        |
+# ==========================
+echo "[*] Writing .vimrc..."
+mkdir -p ~/.vim/tmp
+
+cat > ~/.vimrc <<'EOF'
+# ==========================
+# ===   vim Configuration  ===
+# ==========================
+" === BASIC SETTINGS ===
+set nocompatible          " Disable old vi compatibility
+set number                " Show line numbers
+set cursorline            " Highlight current line
+set showcmd               " Show command in bottom bar
+set showmode              " Show current mode
+set mouse=a               " Enable mouse support
+set clipboard=unnamedplus " Use system clipboard (if available)
+
+" === INDENTATION ===
+set tabstop=4             " Tab = 4 spaces
+set shiftwidth=4          " Indent = 4 spaces
+set expandtab             " Use spaces instead of tabs
+set smartindent           " Auto-indent based on code
+set autoindent            " Indent same as previous line
+
+" === SEARCH ===
+set hlsearch              " Highlight search matches
+set incsearch             " Incremental search
+set ignorecase            " Case-insensitive search...
+set smartcase             " ...unless capital letters in query
+
+" === UI ENHANCEMENTS ===
+syntax on                 " Enable syntax highlighting
+set ruler                 " Show cursor position
+set laststatus=1         " Always show status line
+set title                 " Show filename in terminal title
+set wildmenu              " Enhanced command line completion
+set background=dark       " Set background for dark terminal
+
+" === PERFORMANCE ===
+set lazyredraw            " Faster scrolling
+set ttyfast               " Assume fast terminal
+set updatetime=300        " Faster CursorHold events
+
+" === KEY MAPPINGS ===
+nnoremap <Space> :nohlsearch<CR>    " Press Space to clear search highlight
+
+" === FILE HANDLING ===
+set undofile              " Persistent undo
+set backup                " Keep backups
+set backupdir=~/.vim/tmp// " Store backups here
+set directory=~/.vim/tmp// " Store swap files here
+set noswapfile            " Optional: Disable swap files
+
+" === STATUS LINE ===
+set statusline=%f\ %y\ %m%r%h%w\ [%l,%c]\ [%p%%]
+
+" === CUSTOM COMMANDS ===
+command WQ wq
+command Wq wq
+command W w
+command Q q
+
+" === PLUGINS (Optional: Enable if you use pathogen, vim-plug etc) ===
+" call plug#begin('~/.vim/plugged')
+" Plug 'tpope/vim-sensible'
+" call plug#end()
+
+EOF
+
+# ==========================
+# | 14. Finalizing and restarting shell |
 # ========================== 
 echo "[*] Finalizing setup..." 
 exec zsh -il
