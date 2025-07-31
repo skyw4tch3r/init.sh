@@ -57,8 +57,18 @@ mkdir -p ~/.tmux
 mkdir -p ~/.tmux/plugins
 mkdir -p ~/.tmux/plugins/tpm
 cat > ~/.tmux/yank.sh <<'EOS'
-#!/bin/sh
-xclip -selection clipboard
+#!/bin/bash
+# Works for macOS or X11
+if command -v pbcopy &>/dev/null; then
+  pbcopy
+elif command -v xclip &>/dev/null; then
+  xclip -selection clipboard
+elif command -v wl-copy &>/dev/null; then
+  wl-copy
+else
+  cat > /dev/null
+fi
+
 EOS
 
 chmod +x ~/.tmux/yank.sh
