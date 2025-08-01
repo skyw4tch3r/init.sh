@@ -209,10 +209,10 @@ bind -T copy-mode-vi MouseDown1Pane select-pane \;\
 set -g status-bg black
 set -g status-fg green
 set -g status-left "#[fg=green] #[bg=black,fg=cyan] #S #[bg=black,fg=green]"
-set -g status-right "#[fg=yellow] %Y-%m-%d %H:%M #[fg=red] #h #[fg=yellow]LAN: #(ifconfig getifaddr eth0)"
+#set -g status-right "#[fg=yellow] %Y-%m-%d %H:%M #[fg=red] #h #[fg=yellow]LAN: #(ifconfig getifaddr eth0)"
 
 # Right side of status bar (includes IP and time)
-set -g status-right "#[bg=black,fg=cyan] #(hostname -I | awk '{print $1}') #[bg=black,fg=cyan] #h %H:%M"
+set -g status-right "#[bg=black,fg=cyan] #(hostname -I | awk '{print $3}') #[bg=black,fg=cyan] #h %H:%M"
 
 # Use reattach-to-user-namespace for better macOS clipboard support
 set-option -g set-clipboard on
