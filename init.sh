@@ -379,9 +379,6 @@ echo "[*] Writing .vimrc..."
 mkdir -p ~/.vim/tmp
 
 cat > ~/.vimrc <<'EOF'
-# ==========================
-# ===   vim Configuration  ===
-# ==========================
 " === BASIC SETTINGS ===
 set nocompatible          " Disable old vi compatibility
 set number                " Show line numbers
