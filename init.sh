@@ -56,6 +56,8 @@ go install -v github.com/projectdiscovery/pdtm/cmd/pdtm@latest
 mkdir -p ~/.tmux
 mkdir -p ~/.tmux/plugins
 mkdir -p ~/.tmux/plugins/tpm
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
 cat > ~/.tmux/yank.sh <<'EOS'
 #!/bin/bash
 # Works for macOS or X11
@@ -237,13 +239,16 @@ bind '$' run "~/.tmux/renew_env.sh"
 # ===       Plugins        ===
 # ============================
 set -g @plugin 'tmux-plugins/tpm'
-set -g @plugin 'tmux-plugins/tmux-battery'
+#set -g @plugin 'tmux-plugins/tmux-battery'
 set -g @plugin 'tmux-plugins/tmux-prefix-highlight'
-set -g @plugin 'tmux-plugins/tmux-online-status'
-set -g @plugin 'tmux-plugins/tmux-sidebar'
+#set -g @plugin 'tmux-plugins/tmux-online-status'
+#set -g @plugin 'tmux-plugins/tmux-sidebar'
 set -g @plugin 'tmux-plugins/tmux-copycat'
 set -g @plugin 'tmux-plugins/tmux-open'
-set -g @plugin 'samoshkin/tmux-plugin-sysstat'
+#set -g @plugin 'samoshkin/tmux-plugin-sysstat'
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'tmux-plugins/tmux-continuum'
+set -g @continuum-restore 'on'
 
 # Plugin properties
 set -g @sidebar-tree 't'
@@ -255,12 +260,16 @@ set -g @open-S 'https://www.google.com/search?q='
 run '~/.tmux/plugins/tpm/tpm'
 EOF
 
+tmux source ~/.tmux.conf
+
 # ==========================
 # | 5. Install Oh My Zsh   |
 # ==========================
 echo "[*] Installing Oh My Zsh..."
 rm -rf $HOME/.oh-my-zsh
 sh -c "$(wget -qO- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
+sleep 10
+exit
 
 # ==========================
 # | 6. Install Zsh theme |
@@ -446,3 +455,5 @@ EOF
 echo "[*] Finalizing setup..." 
 exec zsh -il
 echo "[*] Setup complete! Please restart your terminal or source your shell config."
+echo "[*] Don't Forget to run Inside tmux, press prefix + I (capital) to install plugins."
+
