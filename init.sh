@@ -15,10 +15,10 @@ cd ~
 # ==========================
 echo "[*] Installing essential packages..."
 sudo NEEDRESTART_MODE=a apt update && \
-  sudo NEEDRESTART_MODE=a apt upgrade -y && \
+  #sudo NEEDRESTART_MODE=a apt upgrade -y && \
   #sudo NEEDRESTART_MODE=a apt dist-upgrade -y && \
-  sudo NEEDRESTART_MODE=a apt autoremove -y && \
-  sudo NEEDRESTART_MODE=a apt autoclean -y
+  #sudo NEEDRESTART_MODE=a apt autoremove -y && \
+  #sudo NEEDRESTART_MODE=a apt autoclean -y
 
 sudo NEEDRESTART_MODE=a apt install -y \
   tmux zsh vim curl git xclip wget htop net-tools \
