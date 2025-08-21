@@ -239,13 +239,9 @@ bind '$' run "~/.tmux/renew_env.sh"
 # ===       Plugins        ===
 # ============================
 set -g @plugin 'tmux-plugins/tpm'
-#set -g @plugin 'tmux-plugins/tmux-battery'
 set -g @plugin 'tmux-plugins/tmux-prefix-highlight'
-#set -g @plugin 'tmux-plugins/tmux-online-status'
-#set -g @plugin 'tmux-plugins/tmux-sidebar'
 set -g @plugin 'tmux-plugins/tmux-copycat'
 set -g @plugin 'tmux-plugins/tmux-open'
-#set -g @plugin 'samoshkin/tmux-plugin-sysstat'
 set -g @plugin 'tmux-plugins/tmux-resurrect'
 set -g @plugin 'tmux-plugins/tmux-continuum'
 set -g @continuum-restore 'on'
