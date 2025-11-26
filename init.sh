@@ -25,6 +25,7 @@ sudo NEEDRESTART_MODE=a apt install -y \
   python3-pip python3-dev libssl-dev libffi-dev build-essential unzip python3-venv \
   fzf golang-go cargo pipx massdns libpcap-dev docker.io docker-compose autojump source-highlight
 
+sudo rm /usr/bin/httpx
 # ==========================
 # | 1.1 Install NeoVIM |
 # ==========================
