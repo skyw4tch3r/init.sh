@@ -24,7 +24,8 @@ sudo NEEDRESTART_MODE=a apt install -y \
   tmux zsh vim curl git xclip wget htop net-tools \
   python3-pip python3-dev libssl-dev libffi-dev build-essential unzip python3-venv \
   fzf golang-go cargo pipx massdns libpcap-dev docker.io docker-compose autojump source-highlight
-
+  
+sudo touch /usr/bin/httpx
 sudo rm /usr/bin/httpx
 # ==========================
 # | 1.1 Install NeoVIM |
@@ -54,7 +55,7 @@ go install -v github.com/projectdiscovery/pdtm/cmd/pdtm@latest
 # ==========================
 # | 4. Write .tmux.conf    |
 # ==========================
-rm -rf ~/.tmux/plugins/tpm/tpm
+rm -rf ~/.tmux/
 mkdir -p ~/.tmux
 mkdir -p ~/.tmux/plugins
 mkdir -p ~/.tmux/plugins/tpm
