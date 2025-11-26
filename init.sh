@@ -55,7 +55,7 @@ go install -v github.com/projectdiscovery/pdtm/cmd/pdtm@latest
 # ==========================
 # | 4. Write .tmux.conf    |
 # ==========================
-rm -rf ~/.tmux/
+rm -rf ~/.tmux
 mkdir -p ~/.tmux
 mkdir -p ~/.tmux/plugins
 mkdir -p ~/.tmux/plugins/tpm
