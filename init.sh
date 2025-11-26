@@ -455,7 +455,8 @@ EOF
 # | 14. Finalizing and restarting shell |
 # ========================== 
 echo "[*] Finalizing setup..." 
-exec zsh -il
 echo "[*] Setup complete! Please restart your terminal or source your shell config."
 echo "[*] Don't Forget to run Inside tmux, press prefix + I (capital) to install plugins."
+exec zsh -il
+
 
