@@ -266,8 +266,11 @@ tmux source ~/.tmux.conf
 # ==========================
 echo "[*] Installing Oh My Zsh..."
 rm -rf $HOME/.oh-my-zsh
-RUNZSH=no sh -c "$(wget -qO- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
-sleep 10
+export RUNZSH=no
+export CHSH=no
+export KEEP_ZSHRC=no
+sh -c "$(wget -qO- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
+sleep 5
 
 
 # ==========================
