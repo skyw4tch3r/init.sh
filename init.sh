@@ -54,6 +54,7 @@ go install -v github.com/projectdiscovery/pdtm/cmd/pdtm@latest
 # ==========================
 # | 4. Write .tmux.conf    |
 # ==========================
+rm -rf ~/.tmux/plugins/tpm/tpm
 mkdir -p ~/.tmux
 mkdir -p ~/.tmux/plugins
 mkdir -p ~/.tmux/plugins/tpm
@@ -264,9 +265,9 @@ tmux source ~/.tmux.conf
 # ==========================
 echo "[*] Installing Oh My Zsh..."
 rm -rf $HOME/.oh-my-zsh
-sh -c "$(wget -qO- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
+RUNZSH=no sh -c "$(wget -qO- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
 sleep 10
-exit
+
 
 # ==========================
 # | 6. Install Zsh theme |
